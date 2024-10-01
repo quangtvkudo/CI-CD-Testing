@@ -51,7 +51,6 @@ jobs:
             -configuration Release \
             -sdk iphoneos \
             -archivePath ./build/LearningRxSwift.xcarchive \
-            -verbose
         timeout-minutes: 10
 
       - name: Export IPA
