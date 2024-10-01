@@ -25,4 +25,16 @@ post_install do |installer|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
     end
   end
+
+  file = 'Pods/Target Support Files/Pods-LearningRxSwift/Pods-LearningRxSwift-frameworks.sh'
+
+  if File.exist?(file)
+    content = File.read(file)
+    if !content.include?('source="$(readlink -f "${source}")"')
+      fixed_content = content.gsub('source="$(readlink "${source}")"', 'source="$(readlink -f "${source}")"')
+      File.write(file, fixed_content)
+    else
+    end
+  else
+  end
 end
