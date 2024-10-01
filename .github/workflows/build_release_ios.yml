@@ -24,10 +24,10 @@ jobs:
       - name: Install CocoaPods dependencies
         run: pod install
         
-      # - name: Select Xcode version
-      #   run: |
-      #     sudo xcode-select -switch /Applications/Xcode_16.0.app
-      #     xcodebuild -version
+      - name: Select Xcode version
+        run: |
+          sudo xcode-select -switch /Applications/Xcode_16.0.app
+          xcodebuild -version
 
       # - name: Dependencies
       #   run: |
@@ -60,7 +60,7 @@ jobs:
             -sdk iphoneos \
             -archivePath ./build/LearningRxSwift.xcarchive
             # -UseModernBuildSystem=NO
-        timeout-minutes: 30
+        timeout-minutes: 60
 
       - name: Export IPA
         run: |
