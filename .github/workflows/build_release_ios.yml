@@ -22,9 +22,7 @@ jobs:
           rm -rf ~/Library/Developer/Xcode/DerivedData
 
       - name: Install CocoaPods dependencies
-        run: |
-          gem install cocoapods
-          pod install
+        run: pod install
         
       # - name: Select Xcode version
       #   run: |
