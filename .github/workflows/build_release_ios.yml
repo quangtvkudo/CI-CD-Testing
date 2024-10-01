@@ -46,7 +46,6 @@ jobs:
 
       - name: Install CocoaPods dependencies
         run: pod install
-        working-directory: ./CI-CD-Testing
         
       - name: Clean & Archive the app
         run: xcodebuild -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift -configuration Release -sdk iphoneos
