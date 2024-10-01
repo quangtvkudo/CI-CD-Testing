@@ -21,8 +21,8 @@ jobs:
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData
 
-      # - name: Install CocoaPods dependencies
-      #   run: pod install
+      - name: Install CocoaPods dependencies
+        run: pod install
         
       - name: Select Xcode version
         run: |
@@ -43,20 +43,17 @@ jobs:
           echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > CI_CD_AppStore.mobileprovision
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           mv CI_CD_AppStore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-
-      - name: Install CocoaPods dependencies
-        run: pod install
         
       - name: Clean & Archive the app
-        run: xcodebuild -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift -configuration Release -sdk iphoneos
-        # run: |
-        #   xcodebuild clean -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift
-        #   xcodebuild archive \
-        #     -workspace LearningRxSwift.xcworkspace \
-        #     -scheme LearningRxSwift \
-        #     -configuration Release \
-        #     -sdk iphoneos \
-        #     -archivePath ./build/LearningRxSwift.xcarchive
+        # run: xcodebuild -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift -configuration Release -sdk iphoneos
+        run: |
+          xcodebuild clean -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift
+          xcodebuild archive \
+            -workspace LearningRxSwift.xcworkspace \
+            -scheme LearningRxSwift \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath ./build/LearningRxSwift.xcarchive
         timeout-minutes: 60
 
       - name: Export IPA
@@ -64,7 +61,7 @@ jobs:
           xcodebuild -exportArchive \
             -archivePath ./build/LearningRxSwift.xcarchive \
             -exportPath ./build \
-            -exportOptionsPlist ExportOptions.plist
+            -exportOptionsPlist ./ExportOptions.plist
 
       - name: Export AuthKey
         run: |
