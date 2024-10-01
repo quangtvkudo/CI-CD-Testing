@@ -213,7 +213,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#\"${PODS_ROOT}/Target Support Files/Pods-LearningRxSwift/Pods-LearningRxSwift-frameworks.sh\"\n\"${PROJECT_DIR}/LearningRxSwift/Pods-LearningRxSwift-frameworks.sh-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LearningRxSwift/Pods-LearningRxSwift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8685AF065DCA6C14D356B505 /* [CP] Check Pods Manifest.lock */ = {
