@@ -12,19 +12,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Ruby for CocoaPods
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          
+      - name: Install Bundler
+        run: gem install bundler
+
       - name: Clean DerivedData directory
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData
 
-      - name: Select Xcode version
-        run: |
-          sudo xcode-select -switch /Applications/Xcode_16.0.app
-          xcodebuild -version
+      - name: Install CocoaPods dependencies
+        run: pod install
+        
+      # - name: Select Xcode version
+      #   run: |
+      #     sudo xcode-select -switch /Applications/Xcode_16.0.app
+      #     xcodebuild -version
 
-      - name: Dependencies
-        run: |
-          gem install cocoapods
-          pod install
+      # - name: Dependencies
+      #   run: |
+      #     gem install cocoapods
+      #     pod install
 
       - name: Install certificate p12
         run: |
