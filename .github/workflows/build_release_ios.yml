@@ -51,7 +51,8 @@ jobs:
             -configuration Release \
             -sdk iphoneos \
             -archivePath ./build/LearningRxSwift.xcarchive \
-            -UseModernBuildSystem=YES
+            SKIP_INSTALL=NO \
+            BUILD_LIBRARY_FOR_DISTRIBUTION=YES
         timeout-minutes: 10
 
       - name: Export IPA
