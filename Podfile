@@ -5,8 +5,14 @@ target 'LearningRxSwift' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  pod "RxSwift"
-  pod "RxCocoa"
+  pod 'Alamofire'
+  pod 'RMQClient'
+  pod 'AZSClient'
+  pod 'AlertToast'
+  pod 'Files'
+  pod 'SKPhotoBrowser'
+  pod 'RealmSwift'
+  pod 'Sentry'
 
 end
 
