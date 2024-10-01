@@ -1,0 +1,78 @@
+name: Release App
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Release App
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up ruby env
+        uses: ruby/setup-ruby@v1
+        with:
+         ruby-version: 2.7.2
+         bundler-cache: true
+         
+      - name: Clean DerivedData directory
+        run: |
+          rm -rf ~/Library/Developer/Xcode/DerivedData
+
+      - name: Dependencies        
+        run: pod install
+
+      - name: Install certificate p12
+        run: |
+          echo "${{ secrets.IOS_CERT_SIGNING_KEY }}" | base64 --decode > certificate.p12
+          security create-keychain -p "actions" build.keychain
+          security import certificate.p12 -k build.keychain -P "${{ secrets.IOS_CERT_SIGNING_KEY_PASSWORD }}" -T /usr/bin/codesign
+          security list-keychains -s build.keychain
+          security unlock-keychain -p "actions" build.keychain
+          security set-keychain-settings build.keychain
+
+      - name: Install provisioning profile
+        run: |
+          echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > CI_CD_AppStore.mobileprovision
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          mv CI_CD_AppStore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+
+      - name: Clean project
+        run: |
+          xcodebuild clean \
+            -workspace LearningRxSwift.xcworkspace \
+            -scheme LearningRxSwift \
+            -configuration Release
+
+      - name: Archive the app
+        run: |
+          xcodebuild archive \
+            -workspace LearningRxSwift.xcworkspace \
+            -scheme LearningRxSwift \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath ./build/LearningRxSwift.xcarchive
+
+      - name: Export IPA
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath ./build/LearningRxSwift.xcarchive \
+            -exportPath ./build \
+            -exportOptionsPlist ./ExportOptions.plist
+
+      - name: Export AuthKey
+        run: |
+          echo "${{ secrets.ASC_KEY }}" | base64 --decode > AuthKey_Z57MN5RTXV.p8
+          mkdir -p ./private_keys
+          mv AuthKey_Z57MN5RTXV.p8 ./private_keys/
+
+      - name: Upload to TestFlight
+        run: |
+          xcrun altool --upload-app \
+            --type ios \
+            --file ./build/LearningRxSwift.ipa \
+            --apiKey ${{ secrets.ASC_KEY_ID }} \
+            --apiIssuer ${{ secrets.ASC_ISSUER_ID }}
