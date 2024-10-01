@@ -43,23 +43,26 @@ jobs:
           security unlock-keychain -p "actions" build.keychain
           security set-keychain-settings build.keychain
 
-      - name: Install provisioning profile
-        run: |
-          echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > CI_CD_AppStore.mobileprovision
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          mv CI_CD_AppStore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+      - name: Decode provisioning profile
+        run: echo "$PROVISIONING_PROFILE" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/CI_CD_AppStore.mobileprovision
+        env:
+          PROVISIONING_PROFILE: ${{ secrets.PROVISIONING_PROFILE }}
+      # - name: Install provisioning profile
+      #   run: |
+      #     echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > CI_CD_AppStore.mobileprovision
+      #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+      #     mv CI_CD_AppStore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
 
       - name: Clean & Archive the app
-        run: |
-          xcodebuild clean -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift
-          # export COCOAPODS_PARALLEL_CODE_SIGN=false
-          xcodebuild archive \
-            -workspace LearningRxSwift.xcworkspace \
-            -scheme LearningRxSwift \
-            -configuration Release \
-            -sdk iphoneos \
-            -archivePath ./build/LearningRxSwift.xcarchive
-            # -UseModernBuildSystem=NO
+        run: xcodebuild -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift -configuration Release -sdk iphoneos
+        # run: |
+        #   xcodebuild clean -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift
+        #   xcodebuild archive \
+        #     -workspace LearningRxSwift.xcworkspace \
+        #     -scheme LearningRxSwift \
+        #     -configuration Release \
+        #     -sdk iphoneos \
+        #     -archivePath ./build/LearningRxSwift.xcarchive
         timeout-minutes: 60
 
       - name: Export IPA
