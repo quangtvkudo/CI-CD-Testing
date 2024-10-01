@@ -16,16 +16,15 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
-          
-      - name: Install Bundler
-        run: gem install bundler -v 2.4.22
 
       - name: Clean DerivedData directory
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData
 
       - name: Install CocoaPods dependencies
-        run: pod install
+        run: |
+          gem install cocoapods
+          pod install
         
       # - name: Select Xcode version
       #   run: |
@@ -66,7 +65,8 @@ jobs:
             -scheme LearningRxSwift \
             -configuration Release \
             -sdk iphoneos \
-            -archivePath ./build/LearningRxSwift.xcarchive
+            -archivePath ./build/LearningRxSwift.xcarchive \
+            -UseModernBuildSystem=NO
         timeout-minutes: 30
 
       - name: Export IPA
