@@ -12,18 +12,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up ruby env
-        uses: ruby/setup-ruby@v1
-        with:
-         ruby-version: 2.7.2
-         bundler-cache: true
+      # - name: Set up ruby env
+      #   uses: ruby/setup-ruby@v1
+      #   with:
+      #    ruby-version: 2.7.2
+      #    bundler-cache: true
          
       - name: Clean DerivedData directory
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData
 
       - name: Dependencies        
-        run: pod install
+        shell: bash
+        run: |
+          gem install cocoapods
+          pod install
 
       - name: Install certificate p12
         run: |
@@ -48,6 +51,7 @@ jobs:
             -configuration Release
 
       - name: Archive the app
+        shell: bash
         run: |
           xcodebuild archive \
             -workspace LearningRxSwift.xcworkspace \
@@ -55,6 +59,7 @@ jobs:
             -configuration Release \
             -sdk iphoneos \
             -archivePath ./build/LearningRxSwift.xcarchive
+        timeout-minutes: 10
 
       - name: Export IPA
         run: |
