@@ -216,7 +216,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Fixing Pods-LearningRxSwift-frameworks.sh\"\n#SRC_STR=' source=\"$(readlink \"${source}\")\"'\n#DST_STR=' #source=\"$(readlink \"${source}\")\"'\n\n#sed -i -e \"s/${SRC_STR}/${DST_STR}/g\" ${PODS_ROOT}\"/Target Support Files/Pods-LearningRxSwift/Pods-LearningRxSwift-frameworks.sh\"\nSRC_STR='    path=`$old_read_link $1`;'\nDST_STR='    path=`$old_read_link \"$1\"`;'\n\nsed -i -e \"s/${SRC_STR}/${DST_STR}/g\" \"${PODS_ROOT}/Target Support Files/Pods-LearningRxSwift/Pods-LearningRxSwift-frameworks.sh\"\necho \"Done fixing Pods-AppName-frameworks.sh\"\n\necho \"Done Fixing Pods-LearningRxSwift-frameworks.sh\"\n";
+			shellScript = "echo \"Fixing Pods-LearningRxSwift-frameworks.sh\"\nSRC_STR=' source=\"$(readlink \"${source}\")\"'\nDST_STR=' #source=\"$(readlink \"${source}\")\"'\n\nsed -i -e \"s/${SRC_STR}/${DST_STR}/g\" ${PODS_ROOT}\"/Target Support Files/Pods-LearningRxSwift/Pods-LearningRxSwift-frameworks.sh\"\n\necho \"Done Fixing Pods-LearningRxSwift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5B699A1651A42C609DDD1319 /* [CP] Embed Pods Frameworks */ = {
