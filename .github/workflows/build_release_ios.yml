@@ -21,18 +21,13 @@ jobs:
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData
 
-      - name: Install CocoaPods dependencies
-        run: pod install
+      # - name: Install CocoaPods dependencies
+      #   run: pod install
         
       - name: Select Xcode version
         run: |
           sudo xcode-select -switch /Applications/Xcode_16.0.app
           xcodebuild -version
-
-      # - name: Dependencies
-      #   run: |
-      #     gem install cocoapods
-      #     pod install
 
       - name: Install certificate p12
         run: |
@@ -43,16 +38,16 @@ jobs:
           security unlock-keychain -p "actions" build.keychain
           security set-keychain-settings build.keychain
 
-      - name: Decode provisioning profile
-        run: echo "$PROVISIONING_PROFILE" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/CI_CD_AppStore.mobileprovision
-        env:
-          PROVISIONING_PROFILE: ${{ secrets.PROVISIONING_PROFILE }}
-      # - name: Install provisioning profile
-      #   run: |
-      #     echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > CI_CD_AppStore.mobileprovision
-      #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-      #     mv CI_CD_AppStore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+      - name: Install provisioning profile
+        run: |
+          echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > CI_CD_AppStore.mobileprovision
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          mv CI_CD_AppStore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
 
+      - name: Install CocoaPods dependencies
+        run: pod install
+        working-directory: ./YourProjectDirectory
+        
       - name: Clean & Archive the app
         run: xcodebuild -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift -configuration Release -sdk iphoneos
         # run: |
@@ -70,7 +65,7 @@ jobs:
           xcodebuild -exportArchive \
             -archivePath ./build/LearningRxSwift.xcarchive \
             -exportPath ./build \
-            -exportOptionsPlist ./ExportOptions.plist
+            -exportOptionsPlist ExportOptions.plist
 
       - name: Export AuthKey
         run: |
