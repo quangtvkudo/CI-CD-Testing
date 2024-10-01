@@ -16,6 +16,11 @@ jobs:
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData
 
+      - name: Select Xcode version
+        run: |
+          sudo xcode-select -switch /Applications/Xcode_14.3.app
+          xcodebuild -version
+
       - name: Dependencies
         run: |
           gem install cocoapods
@@ -50,7 +55,7 @@ jobs:
             -scheme LearningRxSwift \
             -configuration Release \
             -sdk iphoneos \
-            -archivePath ./build/LearningRxSwift.xcarchive \
+            -archivePath ./build/LearningRxSwift.xcarchive
         timeout-minutes: 10
 
       - name: Export IPA
