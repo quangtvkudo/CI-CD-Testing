@@ -49,15 +49,10 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           mv CI_CD_AppStore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
 
-      - name: Clean project
+      - name: Clean & Archive the app
         run: |
-          xcodebuild clean \
-            -workspace LearningRxSwift.xcworkspace \
-            -scheme LearningRxSwift \
-            -configuration Release
-
-      - name: Archive the app
-        run: |
+          xcodebuild clean -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift
+          export COCOAPODS_PARALLEL_CODE_SIGN=false
           xcodebuild archive \
             -workspace LearningRxSwift.xcworkspace \
             -scheme LearningRxSwift \
