@@ -52,14 +52,14 @@ jobs:
       - name: Clean & Archive the app
         run: |
           xcodebuild clean -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift
-          export COCOAPODS_PARALLEL_CODE_SIGN=false
+          # export COCOAPODS_PARALLEL_CODE_SIGN=false
           xcodebuild archive \
             -workspace LearningRxSwift.xcworkspace \
             -scheme LearningRxSwift \
             -configuration Release \
             -sdk iphoneos \
-            -archivePath ./build/LearningRxSwift.xcarchive \
-            -UseModernBuildSystem=NO
+            -archivePath ./build/LearningRxSwift.xcarchive
+            # -UseModernBuildSystem=NO
         timeout-minutes: 30
 
       - name: Export IPA
