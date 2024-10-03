@@ -42,8 +42,8 @@ jobs:
 
       - name: Clean project & remove DerivedData directory
         run: |
-        rm -rf ~/Library/Developer/Xcode/DerivedData
-        xcodebuild clean -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift
+          rm -rf ~/Library/Developer/Xcode/DerivedData
+          xcodebuild clean -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift
 
       - name: Build and run tests
         run: |
