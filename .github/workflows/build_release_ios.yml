@@ -17,17 +17,17 @@ jobs:
         with:
           ruby-version: 2.7
 
+      - name: Set up latest Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: 'latest'
+
       - name: Clean DerivedData directory
         run: |
           rm -rf ~/Library/Developer/Xcode/DerivedData
 
       - name: Install CocoaPods dependencies
         run: pod install
-        
-      - name: Select Xcode version
-        run: |
-          sudo xcode-select -switch /Applications/Xcode_16.0.app
-          xcodebuild -version
 
       - name: Install certificate p12
         run: |
