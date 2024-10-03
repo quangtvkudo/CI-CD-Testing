@@ -35,7 +35,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1BC87DFB2CAE3AD700B53B01"
+               BlueprintIdentifier = "1BA19B402CAE3F3A009D6F0B"
                BuildableName = "LearningRxSwiftTests.xctest"
                BlueprintName = "LearningRxSwiftTests"
                ReferencedContainer = "container:LearningRxSwift.xcodeproj">

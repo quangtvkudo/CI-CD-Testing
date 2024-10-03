@@ -45,9 +45,6 @@
 		3415F602F3A90657EA21B63E /* Pods-LearningRxSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearningRxSwift.release.xcconfig"; path = "Target Support Files/Pods-LearningRxSwift/Pods-LearningRxSwift.release.xcconfig"; sourceTree = "<group>"; };
 		75165A04951F601355BF03AB /* Pods_LearningRxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LearningRxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84430D0DB2144632D1D954DB /* Pods-LearningRxSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearningRxSwift.debug.xcconfig"; path = "Target Support Files/Pods-LearningRxSwift/Pods-LearningRxSwift.debug.xcconfig"; sourceTree = "<group>"; };
-		8EFFD932A57D8334632F2DBE /* Pods-LearningRxSwift-LearningRxSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearningRxSwift-LearningRxSwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-LearningRxSwift-LearningRxSwiftTests/Pods-LearningRxSwift-LearningRxSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
-		DBA303D2EDD2C1B5DFE76F08 /* Pods_LearningRxSwift_LearningRxSwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LearningRxSwift_LearningRxSwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E352DBFD52A4BF0A9472A79C /* Pods-LearningRxSwift-LearningRxSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearningRxSwift-LearningRxSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-LearningRxSwift-LearningRxSwiftTests/Pods-LearningRxSwift-LearningRxSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				75165A04951F601355BF03AB /* Pods_LearningRxSwift.framework */,
-				DBA303D2EDD2C1B5DFE76F08 /* Pods_LearningRxSwift_LearningRxSwiftTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -161,8 +157,6 @@
 			children = (
 				84430D0DB2144632D1D954DB /* Pods-LearningRxSwift.debug.xcconfig */,
 				3415F602F3A90657EA21B63E /* Pods-LearningRxSwift.release.xcconfig */,
-				8EFFD932A57D8334632F2DBE /* Pods-LearningRxSwift-LearningRxSwiftTests.debug.xcconfig */,
-				E352DBFD52A4BF0A9472A79C /* Pods-LearningRxSwift-LearningRxSwiftTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -178,7 +172,6 @@
 				1B56247D2B4D23A00093D4F4 /* Sources */,
 				1B56247E2B4D23A00093D4F4 /* Frameworks */,
 				1B56247F2B4D23A00093D4F4 /* Resources */,
-				1B906CF42CAC4BC600F4E636 /* Build Phase Script */,
 				5B699A1651A42C609DDD1319 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -204,8 +197,6 @@
 				1BA19B462CAE3F3A009D6F0B /* PBXTargetDependency */,
 			);
 			name = LearningRxSwiftTests;
-			packageProductDependencies = (
-			);
 			productName = LearningRxSwiftTests;
 			productReference = 1BA19B412CAE3F3A009D6F0B /* LearningRxSwiftTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -269,25 +260,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1B906CF42CAC4BC600F4E636 /* Build Phase Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Build Phase Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo \"Fixing Pods-LearningRxSwift-frameworks.sh\"\nSRC_STR=' source=\"$(readlink \"${source}\")\"'\nDST_STR=' #source=\"$(readlink \"${source}\")\"'\n\nsed -i -e \"s/${SRC_STR}/${DST_STR}/g\" ${PODS_ROOT}\"/Target Support Files/Pods-LearningRxSwift/Pods-LearningRxSwift-frameworks.sh\"\n\necho \"Done Fixing Pods-LearningRxSwift-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5B699A1651A42C609DDD1319 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

@@ -47,11 +47,18 @@ jobs:
 
       - name: Build and run unittest
         run: |
-          xcodebuild test \
-            -workspace LearningRxSwift.xcworkspace \          # The path to your Xcode workspace
-            -scheme LearningRxSwift \                  # Your app's scheme
-            -destination 'platform=iOS Simulator,name=iPhone 15,OS=16.0' \   # Destination device/simulator
-            -only-testing:LearningRxSwiftTests               # Specify the test target (e.g., `YourAppTests`)
+          xcodebuild test\
+            -workspace LearningRxSwift.xcworkspace \
+            -scheme LearningRxSwift \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,OS=18.0,name=iPhone 16' \
+            | xcpretty --test
+
+          # xcodebuild test \
+          #   -workspace LearningRxSwift.xcworkspace \
+          #   -scheme LearningRxSwift \
+          #   -destination 'platform:iOS Simulator, OS:17.5, name:iPhone 15' \
+          #   -only-testing:LearningRxSwiftTests
 
       - name: Clean & Archive the app
         run: |
