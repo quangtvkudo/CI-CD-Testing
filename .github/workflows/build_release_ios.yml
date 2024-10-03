@@ -22,10 +22,6 @@ jobs:
         with:
           xcode-version: 'latest'
 
-      - name: Clean DerivedData directory
-        run: |
-          rm -rf ~/Library/Developer/Xcode/DerivedData
-
       - name: Install CocoaPods dependencies
         run: pod install
 
@@ -43,19 +39,33 @@ jobs:
           echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > CI_CD_AppStore.mobileprovision
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           mv CI_CD_AppStore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-        
-      - name: Clean & Archive the app
-        # run: xcodebuild -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift -configuration Release -sdk iphoneos
+
+      - name: Clean project & remove DerivedData directory
         run: |
-          xcodebuild clean -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift
+        rm -rf ~/Library/Developer/Xcode/DerivedData
+        xcodebuild clean -workspace LearningRxSwift.xcworkspace -scheme LearningRxSwift
+
+      - name: Build and run tests
+        run: |
+          xcodebuild \
+            -workspace LearningRxSwift.xcworkspace \
+            -scheme LearningRxSwift \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 14,OS=latest' \
+            test \
+            | xcpretty --test
+
+      - name: Clean & Archive the app
+        run: |
           xcodebuild archive \
             -workspace LearningRxSwift.xcworkspace \
             -scheme LearningRxSwift \
             -configuration Release \
             -sdk iphoneos \
-            -archivePath ./build/LearningRxSwift.xcarchive
-            -jobs 2 | xcpretty
-        timeout-minutes: 60
+            -archivePath ./build/LearningRxSwift.xcarchive \
+            -jobs 2 \
+            | xcpretty
+        timeout-minutes: 20
 
       - name: Export IPA
         run: |
