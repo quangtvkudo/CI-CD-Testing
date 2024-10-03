@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '16.0'
+platform :ios, '16.0'
 
 target 'LearningRxSwift' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -13,6 +13,10 @@ target 'LearningRxSwift' do
   pod 'SKPhotoBrowser'
   pod 'RealmSwift'
   pod 'Sentry'
+
+  target 'LearningRxSwiftTests' do
+    inherit! :complete
+  end
 
 end
 
