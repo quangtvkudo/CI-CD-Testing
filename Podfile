@@ -14,9 +14,9 @@ target 'LearningRxSwift' do
   pod 'RealmSwift'
   pod 'Sentry'
 
-  target 'LearningRxSwiftTests' do
-    inherit! :complete
-  end
+#  target 'LearningRxSwiftTests' do
+#    inherit! :complete
+#  end
 
 end
 
